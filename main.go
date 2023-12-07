@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 // import (
 // 	"bufio"
 // 	"fmt"
@@ -7,6 +11,6 @@ package main
 // )
 
 func main() {
-	// fmt.Println("Hello World")
+	fmt.Println("Hello World")
 	startRepl()
 }
