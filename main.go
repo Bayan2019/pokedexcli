@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"github.com/Bayan2019/pokedexcli/internal/pokeapi"
 )
 
 // import (
@@ -10,7 +10,16 @@ import (
 // 	"os"
 // )
 
+type config struct {
+	pokeapiClient       pokeapi.Client
+	nextLocationAreaURL *string
+	prevLoactionAreaURL *string
+}
+
 func main() {
-	fmt.Println("Hello World")
-	startRepl()
+	cfg := config{
+		pokeapiClient: pokeapi.NewClient(),
+	}
+	// fmt.Println("Hello World")
+	startRepl(&cfg)
 }
