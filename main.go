@@ -2,7 +2,6 @@ package main
 
 import (
 	"time"
-
 	"github.com/Bayan2019/pokedexcli/internal/pokeapi"
 )
 
