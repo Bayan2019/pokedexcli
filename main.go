@@ -2,6 +2,7 @@ package main
 
 import (
 	"time"
+
 	"github.com/Bayan2019/pokedexcli/internal/pokeapi"
 )
 
@@ -23,6 +24,6 @@ func main() {
 		pokeapiClient: pokeapi.NewClient(time.Hour),
 		caughtPokemon: make(map[string]pokeapi.Pokemon),
 	}
-	// fmt.Println("Hello World")
+	// start up an interactive REPL
 	startRepl(&cfg)
 }

@@ -8,14 +8,19 @@ import (
 )
 
 func startRepl(cfg *config) {
+	// Get input using bufio.NewScanner, .Scan, and .Text
 	scanner := bufio.NewScanner(os.Stdin)
-
+	// Use an infinite for loop to keep the REPL running.
 	for {
+		// It should print a prompt
 		fmt.Print("pokedex >")
-
+		// you should block and wait for some input
+		// Get input using .Scan
 		scanner.Scan()
+		// Once input is received
+		// Get input using .Text
 		text := scanner.Text()
-
+		// you should parse it
 		cleaned := cleanInput(text)
 		if len(cleaned) == 0 {
 			continue
@@ -35,7 +40,7 @@ func startRepl(cfg *config) {
 			fmt.Println("Invalid Command")
 			continue
 		}
-
+		// and then execute a command
 		err := command.callback(cfg, args...)
 		if err != nil {
 			fmt.Println(err)
@@ -50,12 +55,16 @@ type cliCommand struct {
 }
 
 func getCommands() map[string]cliCommand {
+	// I recommend storing your commands in a map.
+	// Remember, functions are first-class citizens in Go, you can pass them around as values!
 	return map[string]cliCommand{
+		// help: prints a help message describing how to use the REPL
 		"help": {
 			name:        "help",
 			description: "Displays a help message",
 			callback:    commandHelp,
 		},
+		// exit: exits the program
 		"exit": {
 			name:        "exit",
 			description: "Exit the Pokedex",
