@@ -7,6 +7,7 @@ import (
 	"github.com/Bayan2019/pokedexcli/internal/pokecache"
 )
 
+// You'll need to use the PokeAPI location-area endpoint to get the location areas.
 const baseURL = "https://pokeapi.co/api/v2"
 
 type Client struct {

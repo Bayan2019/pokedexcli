@@ -7,7 +7,10 @@ import (
 	"net/http"
 )
 
-func (c *Client) ListLocationAreas(pageURL *string) (LocationAreasResponse, error) {
+// 4. PokeAPI
+func (c *Client) ListLocationAreas(pageURL *string) (RespShallowLocations, error) {
+	// You'll need to use the PokeAPI location-area endpoint to get the location areas.
+	// Calling the endpoint without an id will return a batch of location areas.
 	endpoint := "/location-area"
 	fullURL := baseURL + endpoint
 	if pageURL != nil {
@@ -19,10 +22,10 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreasResponse, erro
 	if ok {
 		fmt.Println("Cache hit")
 
-		locationAreasResp := LocationAreasResponse{}
+		locationAreasResp := RespShallowLocations{}
 		err := json.Unmarshal(dat, &locationAreasResp)
 		if err != nil {
-			return LocationAreasResponse{}, err
+			return RespShallowLocations{}, err
 		}
 
 		return locationAreasResp, nil
@@ -33,28 +36,28 @@ func (c *Client) ListLocationAreas(pageURL *string) (LocationAreasResponse, erro
 	req, err := http.NewRequest("GET", fullURL, nil)
 
 	if err != nil {
-		return LocationAreasResponse{}, err
+		return RespShallowLocations{}, err
 	}
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		return LocationAreasResponse{}, err
+		return RespShallowLocations{}, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode > 399 {
-		return LocationAreasResponse{}, fmt.Errorf("bad status code: %v", resp.StatusCode)
+		return RespShallowLocations{}, fmt.Errorf("bad status code: %v", resp.StatusCode)
 	}
 
 	dat, err = io.ReadAll(resp.Body)
 	if err != nil {
-		return LocationAreasResponse{}, err
+		return RespShallowLocations{}, err
 	}
 
-	locationAreasResp := LocationAreasResponse{}
+	locationAreasResp := RespShallowLocations{}
 	err = json.Unmarshal(dat, &locationAreasResp)
 	if err != nil {
-		return LocationAreasResponse{}, err
+		return RespShallowLocations{}, err
 	}
 
 	c.cache.Add(fullURL, dat)
